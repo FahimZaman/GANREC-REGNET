@@ -5,7 +5,7 @@ This is the official repository for GANREC-REGNET of the paper "Patch-wise 3D Se
 ## Installation
 1. Create a virtual environment `conda create -n ganrecreg python=3.10 -y` and activate it `conda activate ganrecreg`
 2. Install [Tensorflow 2.0](https://www.tensorflow.org/install/pip)
-3. `https://github.com/FahimZaman/GANREC-REGNET.git`
+3. git clone `https://github.com/FahimZaman/GANREC-REGNET.git`
 4. Enter the GANREC-REGNET `cd GANREC-REGNET` and run `pip install -r requirements.txt`
 
 
