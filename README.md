@@ -4,15 +4,15 @@ This is the official repository for GANREC-REGNET of the paper "Patch-wise 3D Se
 
 ## Installation
 1. Create a virtual environment `conda create -n ganrecreg python=3.10 -y` and activate it `conda activate ganrecreg`
-2. Install [Tensorflow 2.0](https://pytorch.org/get-started/locally/)
+2. Install [Tensorflow 2.0](https://www.tensorflow.org/install/pip)
 3. `git clone https://github.com/bowang-lab/MedSAM`
 4. Enter the GANREC-REGNET `cd GANREC-REGNET` and run `pip install -r requirements.txt`
 
 
 ## Dataset
 We have used two publicly available dataset in the paper:
-1. knee-MR: The Osteoarthritis Initiative (OAI) 4D (3D+time) knee MRI. (https://nda.nih.gov/oai/)
-2. lung-CT: The 3D non-small cell lung cancer CT. (https://wiki.cancerimagingarchive.net/display/Public/NSCLC+Radiogenomics)
+1. [knee-MR](https://nda.nih.gov/oai/): The Osteoarthritis Initiative (OAI) 4D (3D+time) knee MRI.
+2. [lung-CT](https://wiki.cancerimagingarchive.net/display/Public/NSCLC+Radiogenomics): The 3D non-small cell lung cancer CT.
 Some sample data from knee-MR dataset are included here for demonstrate model training and inference.
 
 
