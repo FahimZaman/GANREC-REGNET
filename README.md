@@ -1,116 +1,55 @@
 # MedSAM
-This is the official repository for MedSAM: Segment Anything in Medical Images.
+This is the official repository for GANREC-REGNET of the paper "Patch-wise 3D Segmentation Quality Assessment Combining Reconstruction and Regression Networks"
 
 
 ## Installation
-1. Create a virtual environment `conda create -n medsam python=3.10 -y` and activate it `conda activate medsam`
-2. Install [Pytorch 2.0](https://pytorch.org/get-started/locally/)
+1. Create a virtual environment `conda create -n ganrecreg python=3.10 -y` and activate it `conda activate ganrecreg`
+2. Install [Tensorflow 2.0](https://pytorch.org/get-started/locally/)
 3. `git clone https://github.com/bowang-lab/MedSAM`
-4. Enter the MedSAM folder `cd MedSAM` and run `pip install -e .`
+4. Enter the GANREC-REGNET `cd GANREC-REGNET` and run `pip install -r requirements.txt`
 
 
-## Get Started
-Download the [model checkpoint](https://drive.google.com/drive/folders/1ETWmi4AiniJeWOt6HAsYgTjYv_fkgzoN?usp=drive_link) and place it at e.g., `work_dir/MedSAM/medsam_vit_b`
+## Dataset
+We have used two publicly available dataset in the paper:
+1. knee-MR: The Osteoarthritis Initiative (OAI) 4D (3D+time) knee MRI. (https://nda.nih.gov/oai/)
+2. lung-CT: The 3D non-small cell lung cancer CT. (https://wiki.cancerimagingarchive.net/display/Public/NSCLC+Radiogenomics)
+Some sample data from knee-MR dataset are included here for demonstrate model training and inference.
 
-We provide three ways to quickly test the model on your images
 
-1. Command line
-
+## Demo
+A sample knee-MR data is used for model inference of the trained GANREC-REGNET model, which generates patch-wise DSC heatmap. The green line shows the segmentation boundary of Femur and Tibial Cartilage. Dark blue and dark red mark the highest and lowest location specific predicted DSC scores, respectively.
 ```bash
-python MedSAM_Inference.py # segment the demo image
+python inference_GANREC-REGNET.py
 ```
-
-Segment other images with the following flags
-```bash
--i input_img
--o output path
---box bounding box of the segmentation target
-```
-
-2. Jupyter-notebook
-
-We provide a step-by-step tutorial on [CoLab](https://colab.research.google.com/drive/19WNtRMbpsxeqimBlmJwtd1dzpaIvK2FZ?usp=sharing)
-
-You can also run it locally with `MedSAM_Inference.ipynb`.
-
-3. GUI
-
-Install `PyQt5` with [pip](https://pypi.org/project/PyQt5/): `pip install PyQt5 ` or [conda](https://anaconda.org/anaconda/pyqt): `conda install -c anaconda pyqt`
-
-```bash
-python gui.py
-```
-
-Load the image to the GUI and specify segmentation targets by drawing bounding boxes.
-
-![seg_demo](assets/seg_demo.gif)
-
-
-https://github.com/bowang-lab/MedSAM/assets/19947331/42db8cae-6ad1-41d3-8db7-013ccf8b28b1
-
+The slider can be moved to toggle among the slices.
 
 
 ## Model Training
-
-### Data preprocessing
-
-Download [SAM checkpoint](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth) and place it at `work_dir/SAM/sam_vit_b_01ec64.pth` .
-
-Download the demo [dataset](https://zenodo.org/record/7860267) and unzip it to `data/FLARE22Train/`.
-
-This dataset contains 50 abdomen CT scans and each scan contains an annotation mask with 13 organs. The names of the organ label are available at [MICCAI FLARE2022](https://flare22.grand-challenge.org/).
-
-Run pre-processing
-
-Install `cc3d`: `pip install connected-components-3d`
-
+There are two steps to train the GANREC-REGNET model.
+1. Train the GANREC-NET model.
 ```bash
-python pre_CT_MR.py
+python train_GANREC-NET.py
 ```
-
-- split dataset: 80% for training and 20% for testing
-- adjust CT scans to [soft tissue](https://radiopaedia.org/articles/windowing-ct) window level (40) and width (400)
-- max-min normalization
-- resample image size to `1024x2014`
-- save the pre-processed images and labels as `npy` files
-
-
-### Training on multiple GPUs (Recommend)
-
-The model was trained on five A100 nodes and each node has four GPUs (80G) (20 A100 GPUs in total). Please use the slurm script to start the training process.
-
+2. Train the REGNET model.
 ```bash
-sbatch train_multi_gpus.sh
+python train_REGNET.py
 ```
-
-When the training process is done, please convert the checkpoint to SAM's format for convenient inference.
-
-```bash
-python utils/ckpt_convert.py # Please set the corresponding checkpoint path first
-```
-
-### Training on one GPU
-
-```bash
-python train_one_gpu.py
-```
-
-If you only want to train the mask decoder, please check the tutorial on the [0.1 branch](https://github.com/bowang-lab/MedSAM/tree/0.1).
+The default GPU device is set to '0' for model training and inference.
 
 
 ## Acknowledgements
-- We highly appreciate all the challenge organizers and dataset owners for providing the public dataset to the community.
-- We thank Meta AI for making the source code of [segment anything](https://github.com/facebookresearch/segment-anything) publicly available.
-- We also thank Alexandre Bonnet for sharing this great [blog](https://encord.com/blog/learn-how-to-fine-tune-the-segment-anything-model-sam/)
+- This research was supported, in part, by NIH NIBIB grant R01-EB004640.
+- The OAI is a public-private partnership comprised of five contracts (N01-AR-2-2258; N01-357 AR-2-2259; N01-AR-2-2260; N01-AR-2-2261; N01-AR-2-2262) funded by the National Insti-358 tutes of Health, a branch of the Department of Health and Human Services, and conducted by the359 OAI Study Investigators. Private funding partners include Merck Research Laboratories; Novartis360 Pharmaceuticals Corporation, laxoSmithKline; and Pfizer, Inc. Private sector funding for the361 OAI is managed by the Foundation for the National Institutes of Health. This manuscript was362 prepared using an OAI public use data set and does not necessarily reflect the opinions or views of363 the OAI investigators, the NIH, or the private funding partners.
+- We also thank Jason Brownlee for making his Pix2Pix implementation (https://machinelearningmastery.com/how-to-implement-pix2pix-gan-models-from-scratch-with-keras/) publicly available.
 
 
 ## Reference
 
 ```
-@article{MedSAM,
-  title={Segment Anything in Medical Images},
-  author={Ma, Jun and He, Yuting and Li, Feifei and Han, Lin and You, Chenyu and and Wang, Bo},
-  journal={arXiv preprint arXiv:2304.12306},
-  year={2023}
+@article{zaman2023patch,
+  title={Patch-wise 3D Segmentation Quality Assessment Combining Reconstruction and Regression Networks},
+  author={Zaman, Fahim Ahmed and Roy, Tarun Kanti and Sonka, Milan and Wu, Xiaodong},
+  year={2023},
+  publisher={TechRxiv}
 }
 ```
