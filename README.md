@@ -13,6 +13,7 @@ This is the official repository for GANREC-REGNET of the paper "Patch-wise 3D Se
 We have used two publicly available dataset in the paper:
 1. [knee-MR](https://nda.nih.gov/oai/): The Osteoarthritis Initiative (OAI) 4D (3D+time) knee MRI.
 2. [lung-CT](https://wiki.cancerimagingarchive.net/display/Public/NSCLC+Radiogenomics): The 3D non-small cell lung cancer CT.
+
 Some sample data from knee-MR dataset are included here for demonstrate model training and inference.
 
 
