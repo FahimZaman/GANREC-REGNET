@@ -1,4 +1,4 @@
-# MedSAM
+# GANREC-REGNET
 This is the official repository for GANREC-REGNET of the paper "Patch-wise 3D Segmentation Quality Assessment Combining Reconstruction and Regression Networks"
 
 
