@@ -1,0 +1,6 @@
+spyder
+matplotlib
+simpleitk
+scikit-learn
+natsort
+tqdm
