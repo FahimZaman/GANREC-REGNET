@@ -13,7 +13,7 @@ from sklearn.model_selection import train_test_split
 from utilities import tools, models
 
 #%% Set Train Parameters
-EPOCHS = 10
+EPOCHS = 100
 BATCH_SIZE = 2
 
 #%% Data Load
