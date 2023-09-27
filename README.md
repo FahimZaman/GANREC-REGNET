@@ -47,10 +47,17 @@ The default GPU device is set to '0' for model training and inference.
 ## Reference
 
 ```
-@article{zaman2023patch,
-  title={Patch-wise 3D Segmentation Quality Assessment Combining Reconstruction and Regression Networks},
-  author={Zaman, Fahim Ahmed and Roy, Tarun Kanti and Sonka, Milan and Wu, Xiaodong},
-  year={2023},
-  publisher={TechRxiv}
+@article{10.1117/1.JMI.10.5.054002,
+author = {Fahim Ahmed Zaman and Tarun Kanti Roy and Milan Sonka and Xiaodong Wu},
+title = {{Patch-wise 3D segmentation quality assessment combining reconstruction and regression networks}},
+volume = {10},
+journal = {Journal of Medical Imaging},
+number = {5},
+publisher = {SPIE},
+pages = {054002},
+keywords = {segmentation quality assessment, convolutional neural network, generative adversarial network, 3D medical imaging, Image segmentation, Image restoration, Education and training, Convolution, Cartilage, Network architectures, Voxels, 3D image processing, Bone, Medical image reconstruction},
+year = {2023},
+doi = {10.1117/1.JMI.10.5.054002},
+URL = {https://doi.org/10.1117/1.JMI.10.5.054002}
 }
 ```
